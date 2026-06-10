@@ -36,7 +36,9 @@
     </thead>
     <tbody>
     	<tr>
-    		<td rowspan="2"><img src="../docs/syst-arch-1.png"></td>
+    		<td rowspan="2">
+				<img src="../docs/syst-arch-1.png"><p><br><code>task_sensors</code> = producer<br><code>task_serial</code> = consumer</p>
+			</td>
     		<td><img src="../docs/syst-arch-2.1.png"></td>
     	</tr>
     	<tr>
@@ -55,13 +57,9 @@
     </tbody>
 </table>
 
-**Model:** `task_sensors` = producer · `task_serial` = consumer
-
-Data flow is single-producer (Core 1) → single-consumer (Core 0) via a lock-free ring buffer.
-
 ---
 
-## Hardware Setup
+## Build Details
 
 
 <table style="width: 100%; border-collapse: collapse;">
@@ -161,6 +159,8 @@ data-pipeline/
 		<tr>
 			<th colspan="2">Firmware</th>
 			<th colspan="2">Data Pipeline</th>
+			<th colspan="2">Analysis</th>
+			<th colspan="2">Modelling</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -169,6 +169,8 @@ data-pipeline/
 			<th>Version</th>
 			<th>Library</th>
 			<th>Version</th>
+			<th rowspan="6" colspan="2">Will be updated soon...</th>
+			<th rowspan="6" colspan="2">Will be updated soon...</th>
 		</tr>
         <tr>
             <td><code>Adafruit MPU6050</code></td>
@@ -240,7 +242,7 @@ data-pipeline/
                 			<pre><code># Port
                 /dev/cu.usbserial-XXXX on macOS (usbserial-0001)
                 /dev/ttyUSBX on Linux (ttyUSB0)
-                COMX on Windows (usually COM3 with no other uart devices connected)
+                COMX on Windows (usually COM3 with no other UART devices connected)
                 			</code></pre>
                 			<pre><code># Execution
                 python run_pipeline.py	# Interactive mode
@@ -258,11 +260,17 @@ data-pipeline/
 
 ## Project Ecosystem
 
-<img src="../docs/pro-eco.png">
-
-| Repo | Role | Status |
-|---|---|---|
-| [`firmware`](https://github.com/multi-sensor-navigation-system/firmware) | ESP32 firmware — sensor acquisition & CSV streaming | ✅ Active |
-| [`data-pipeline`](https://github.com/multi-sensor-navigation-system/data-pipeline) | Host-side logger & calibration — reads serial, writes timestamped CSV | 	✅ Active |
-| [`analysis`](#) | Offline processing — EKF, Allan variance, map visualisation, reports | 🚧 In progress |
-| [`edgehard`](#) | Dead reckoning — GPS dropout modelling, edge inference | 🔜 Planned |
+<table>
+	<tr>
+		<td><img src="../docs/pro-eco.png"></td>
+		<td>
+			<table>
+				<tr><th>Repo</th><th>Status</th></tr>
+				<tr><td><code><a href="https://github.com/multi-sensor-navigation-system/firmware">firmware</a></code></td><td>✅ Active</td></tr>
+				<tr><td><code><a href="https://github.com/multi-sensor-navigation-system/data-pipeline">data-pipeline</a></code></td><td>✅ Active</td></tr>
+				<tr><td><code><a href="#">analysis</a></code></td><td>🚧 In progress</td></tr>
+				<tr><td><code><a href="#">edgehard</a></code></td><td>🔜 Planned</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>
